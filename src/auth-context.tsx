@@ -44,7 +44,7 @@ const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     axiosInstance
-      .post('http://localhost:8000/guest-login')
+      .post('https://rsp-aj41.onrender.com/guest-login')
       .then(({ data }) => {
         console.log(data);
 
