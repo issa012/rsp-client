@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   Dispatch,
   ReactNode,
@@ -8,16 +7,13 @@ import {
   useMemo,
   useState,
 } from 'react';
-
-const axiosInstance = axios.create({
-  withCredentials: true,
-});
+import { axiosInstance } from './axios';
 
 type Props = {
   children?: ReactNode;
 };
 
-type User = {
+export type User = {
   id: number | null;
   username: string | null;
   games: number;
