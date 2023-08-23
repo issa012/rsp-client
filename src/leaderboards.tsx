@@ -1,17 +1,14 @@
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext, User } from './auth-context';
-import { axiosInstance } from './axios';
 import { URL } from './axios';
+import useSWR from 'swr';
+
+export const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Leaderboards = () => {
-  const [leaderboards, setLeaderboards] = useState<User[]>([]);
-  const { user } = useContext(AuthContext);
+  const { data, isLoading } = useSWR(`${URL}/top10`, fetcher);
+  if (isLoading) {
+    return <div>Is loading</div>;
+  }
 
-  useEffect(() => {
-    axiosInstance.get<User[]>(`${URL}/top10`).then(({ data }) => {
-      setLeaderboards(data);
-    });
-  }, [user]);
   return (
     <div>
       <h1>Leaderboards</h1>
@@ -22,7 +19,7 @@ const Leaderboards = () => {
           <div>Games</div>
           <div>Wins</div>
         </div>
-        {leaderboards.map((item, index) => {
+        {data.map((item, index) => {
           return (
             <div className="list__item">
               <div>{index}</div>

@@ -1,8 +1,12 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import './App.css';
+import useSWR from 'swr';
 
 import { socket } from './socket';
 import { AuthContext } from './auth-context';
+
+import './App.css';
+import { fetcher } from './leaderboards';
+import { URL } from './axios';
 
 function computeWinnerText(player1: boolean, winner: string) {
   if (winner == 'd') return 'Draw';
@@ -30,9 +34,10 @@ function App() {
   const [selected, setSelected] = useState<string>('');
   const [winner, setWinner] = useState<string>('');
   const [rematchRequested, setRematchRequested] = useState(false);
-
   const { user } = useContext(AuthContext);
 
+  const { data } = useSWR(`${URL}/users/${user.id}`, fetcher);
+  console.log(data);
   const [timer, setTimer] = useState(TIMER);
   const timerId = useRef<number>(null);
 
@@ -143,7 +148,7 @@ function App() {
     <div>
       <h1>Rock Paper Scissors</h1>
       <h2>
-        username: {user.username} Total games: {user.games} Total wins: {user.wins}
+        username: {user.username} Total games: {data?.games} Total wins: {data?.wins}
       </h2>
       <h3>{winner ? winnerText : ''}</h3>
       {!loading && !gameStarted && <button onClick={handleClick}>Find a Game</button>}
