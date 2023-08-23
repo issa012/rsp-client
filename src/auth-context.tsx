@@ -4,8 +4,8 @@ import {
   ReactNode,
   SetStateAction,
   createContext,
-  useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 
@@ -38,22 +38,22 @@ const AuthContext = createContext<IAuthContext>(initialValue);
 
 const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User>(initialValue.user);
-  const values = useCallback(() => {
-    return { user, setUser };
-  }, [user]);
+  const values = useMemo(() => ({ user, setUser }), [user]);
 
   useEffect(() => {
-    axiosInstance
-      .post('https://rsp-aj41.onrender.com/guest-login')
-      .then(({ data }) => {
-        console.log(data);
+    axiosInstance.get('https://rsp-aj41.onrender.com').then(() => {
+      axiosInstance
+        .post('https://rsp-aj41.onrender.com/guest-login')
+        .then(({ data }) => {
+          console.log(data);
 
-        setUser(data);
-      })
-      .catch((err) => console.log(err));
+          setUser(data);
+        })
+        .catch((err) => console.log(err));
+    });
   }, []);
 
-  return <AuthContext.Provider value={values()}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 
 export { AuthContext, AuthProvider };
