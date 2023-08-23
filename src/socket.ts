@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-const URL = 'https://rsp-aj41.onrender.com';
+import { URL } from './axios';
 
 export const socket = io(URL, {
   withCredentials: true,

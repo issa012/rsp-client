@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react';
 import { axiosInstance } from './axios';
+import { URL } from './axios';
 
 type Props = {
   children?: ReactNode;
@@ -37,9 +38,9 @@ const AuthProvider = ({ children }: Props) => {
   const values = useMemo(() => ({ user, setUser }), [user]);
 
   useEffect(() => {
-    axiosInstance.get('https://rsp-aj41.onrender.com').then(() => {
+    axiosInstance.get(URL).then(() => {
       axiosInstance
-        .post('https://rsp-aj41.onrender.com/guest-login', { id: localStorage.getItem('id') })
+        .post(`${URL}/guest-login`, { id: localStorage.getItem('id') })
         .then(({ data }) => {
           console.log(data);
 

@@ -93,7 +93,6 @@ function App() {
     function onGameCancelled() {
       setGameStarted(false);
       setSelected('');
-      setRoomId('');
       clear();
       setTimer(TIMER);
     }
@@ -139,7 +138,7 @@ function App() {
   }
 
   const winnerText = computeWinnerText(player1, winner);
-
+  console.log(roomId);
   return (
     <div>
       <h1>Rock Paper Scissors</h1>

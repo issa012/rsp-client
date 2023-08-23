@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext, User } from './auth-context';
 import { axiosInstance } from './axios';
+import { URL } from './axios';
 
 const Leaderboards = () => {
   const [leaderboards, setLeaderboards] = useState<User[]>([]);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    axiosInstance.get<User[]>('https://rsp-aj41.onrender.com/top10').then(({ data }) => {
+    axiosInstance.get<User[]>(`${URL}/top10`).then(({ data }) => {
       setLeaderboards(data);
     });
   }, [user]);
