@@ -43,11 +43,12 @@ const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     axiosInstance.get('https://rsp-aj41.onrender.com').then(() => {
       axiosInstance
-        .post('https://rsp-aj41.onrender.com/guest-login')
+        .post('https://rsp-aj41.onrender.com/guest-login', { id: localStorage.getItem('id') })
         .then(({ data }) => {
           console.log(data);
 
           setUser(data);
+          localStorage.setItem('id', data.id);
         })
         .catch((err) => console.log(err));
     });
