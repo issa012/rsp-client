@@ -3,7 +3,6 @@ import './App.css';
 
 import { socket } from './socket';
 import { AuthContext } from './auth-context';
-import { axiosInstance } from './axios';
 
 function computeWinnerText(player1: boolean, winner: string) {
   if (winner == 'd') return 'Draw';
@@ -32,7 +31,7 @@ function App() {
   const [winner, setWinner] = useState<string>('');
   const [rematchRequested, setRematchRequested] = useState(false);
 
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const [timer, setTimer] = useState(TIMER);
   const timerId = useRef<number>(null);
@@ -84,9 +83,6 @@ function App() {
       if (data.winner == 'd') {
         onGameStarted();
       }
-      axiosInstance.get(`https://rsp-aj41.onrender.com/users/${user.id}`).then(({ data }) => {
-        setUser({ ...data });
-      });
     }
 
     function onRematchRequested(data) {
