@@ -20,7 +20,7 @@ function computeWinnerText(player1: boolean, winner: string) {
   return 'No one wins';
 }
 
-const TIMER = 3;
+const TIMER = 5;
 
 function App() {
   const [roomId, setRoomId] = useState<string>('');
