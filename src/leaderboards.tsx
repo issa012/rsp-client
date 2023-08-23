@@ -14,7 +14,7 @@ const Leaderboards = () => {
       <h1>Leaderboards</h1>
       <div className="list">
         <div className="list__item">
-          <div>ID</div>
+          <div>Rank</div>
           <div>Username</div>
           <div>Games</div>
           <div>Wins</div>
@@ -22,7 +22,7 @@ const Leaderboards = () => {
         {data.map((item, index) => {
           return (
             <div className="list__item">
-              <div>{index}</div>
+              <div>{index + 1}</div>
               <div>{item.username}</div>
               <div>{item.games}</div>
               <div>{item.wins}</div>
