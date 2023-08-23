@@ -1,6 +1,7 @@
 import { URL } from './axios';
 import useSWR from 'swr';
 
+// @ts-expect-error expects tuple
 export const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Leaderboards = () => {
